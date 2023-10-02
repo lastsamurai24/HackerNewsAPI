@@ -5,7 +5,7 @@ import time
 def Take_ID():
     id_number = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")
 
-    ID = id_number.json()[:3]
+    ID = id_number.json()[:30]
     return ID
 
 
