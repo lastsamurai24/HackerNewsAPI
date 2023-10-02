@@ -1,14 +1,27 @@
 import requests
 import time
-id_number = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")
 
-ID = id_number.json()[:5]
 
-for id in ID:
+def Take_ID():
+    id_number = requests.get("https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty")
+
+    ID = id_number.json()[:30]
+    return ID
+
+
+ID = Take_ID()
+
+
+def show_news(id):
     time.sleep(1)
     response = requests.get(f"https://hacker-news.firebaseio.com/v0/item/{id}.json?print=pretty")
     news = response.json()
-   
-    title = news['title']
-    link = news['url']
+    return news
+
+
+for id in ID:
+    news = show_news(id)
+
+    title = news["title"]
+    link = news.get("url", "リンクがありません")
     print(f"'title':{title},'link'{link}")
